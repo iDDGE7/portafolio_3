@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/css/styles.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="wrapper-full">
+        <div class="hero-section sections" id="inicio">
+            <div class="center-content-hero">
+                <div class="nav-hero">
+                    <a href="http://portafoliosfit.um.edu.mx/edgardedios" class="link-nav-hero">INICIO</a>
+                </div>
+                <div class="content-hero">
+                    <div class="slider-container" id="contentSlider">
+                        <div class="slide" id="portafolio3">
+                            <div class="content-grid" id="content-grid">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="portafolio-hero">
+                    <a href="https://eduardoddg60.wixsite.com/misitio/portafolio-1" target="_blank" class="link-portafolio-hero">PORTAFOLIO 1</a>
+                    <a href="https://ixsxddhztr5zfzwra5jzpq-on.drv.tw/Portafolio/port%202%20pages/menu.html" target="_blank" class="link-portafolio-hero">PORTAFOLIO 2</a>
+                    <a href="http://portafoliosfit.um.edu.mx/edgardedios/portafolio-3/" target="_blank" class="link-portafolio-hero">PORTAFOLIO 3</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="pop-up-materias">
+        <div class="close-popup">
+            <img src="http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/buttonClose.png" alt="">
+        </div>
+        <div class="hero-pop">
+            <div class="center-content-hero">
+                <h1 class="title-mat">INTELIGENCIA ARTIFICIAL</h1>
+            </div>
+        </div>
+        <div class="container-sections-mats" id="sectionsMat">
+        </div>
+    </div>
+
+    <div class="pop-up-image">
+        <div class="content-image-selected">
+            <img class="image-pop-up" src="" alt="">
+        </div>
+    </div>
+
+    <script type="module">
+        var popMat;
+        var popImage;
+        jQuery(document).ready(function () {
+            popMat = 0;
+            popImage = 0;
+            gridPortafolio();
+            closePopUP();
+            openImage();
+            closePopUPImage();
+            console.log(dataMats);
+        });
+
+        function gridPortafolio() {
+            for (var materia in dataMats) {
+                var idMat = 'id' + materia;
+                jQuery('#content-grid').html(
+                    jQuery('#content-grid').html() +
+                    '<div class="item-portafolio">' +
+                    '<div class="button-open-math" data-value="' + materia + '">OPEN</div>' +
+                    '<div class="container-info" id="' + idMat + '">' +
+                    '<div class="center-info-card">' +
+                    '<div class="content-info-card">' +
+                    '<h2 class="title-card">' + dataMats[materia].TITLE + '</h2>' +
+                    '<h4 class="subtitle-card">' + dataMats[materia].SUBTITLE + '</h4>' +
+                    '<p class="content-card">' + dataMats[materia].DESCRIPTION + '</p>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>');
+
+                jQuery('#' + idMat).css({
+                    'background': 'linear-gradient(0deg, rgba(23, 23, 23, 0.47), rgba(23, 23, 23, 0.47)), url(' + dataMats[materia].IMAGEGRID + ') no-repeat center'
+                })
+            }
+            openMat();
+        }
+
+        function loadDataMat(matSelected) {
+            jQuery('.hero-pop').css({
+                'background': 'linear-gradient(178.94deg, rgba(170, 170, 170, 0) 1.56%, #303C41 90.44%), url(' + dataMats[matSelected].IMAGEHERO + ') center no-repeat'
+            });
+            jQuery('.title-mat').html(dataMats[matSelected].TITLE);
+            jQuery('#sectionsMat').html('');
+            var activitysMats = dataMats[matSelected].ACTIVITYS;
+            var numberSlider = 1;
+            for (var activity in activitysMats) {
+                jQuery('#sectionsMat').html(
+                    jQuery('#sectionsMat').html() +
+                    '<div class="section-mat">' +
+                    '<div class="section-content-activity">' +
+                    '<div class="center-info-activity">' +
+                    '<div class="content-slider-activity" id="slideN' + numberSlider + '"></div>' +
+                    '<div class="content-info-activity">' +
+                    '<p class="title-activity">' + activitysMats[activity].TITLE + '</p>' +
+                    '<p class="description-activity">' + activitysMats[activity].DESCRIPTION + '</p>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="section-reflexion-activity">' +
+                    '<h3 class="title-reflexion">REFLEXION</h3>' +
+                    '<p class="reflexion-activity">' + activitysMats[activity].REFLEXION + '</p>' +
+                    '</div>' +
+                    '</div>'
+                );
+
+                var imagesinSlider = activitysMats[activity].IMAGES;
+                for (var image in imagesinSlider) {
+                    jQuery('#slideN' + numberSlider).html(jQuery('#slideN' + numberSlider).html() +
+                        '<div class="silde-image-activity">' +
+                        '<img class="image-activity" src="' + imagesinSlider[image] + '" alt="">' +
+                        '</div>'
+                    );
+                }
+
+                openImage();
+                numberSlider++;
+            }
+        }
+
+        function openMat() {
+            jQuery('.button-open-math').click(function () {
+                var matSelected = jQuery(this).attr('data-value');
+                loadDataMat(matSelected);
+
+                jQuery('.pop-up-materias').css({
+                    'transform': 'translateY(0%)'
+                })
+                popMat = 1;
+            })
+        }
+
+        function closePopUP() {
+            jQuery('.close-popup').click(function () {
+                jQuery('.pop-up-materias').css({
+                    'transform': 'translateY(-101%)'
+                })
+                popMat = 0;
+            });
+
+            jQuery(document).keyup(function (e) {
+                if (e.which == 27 && popImage == 0) {
+                    jQuery('.pop-up-materias').css({
+                        'transform': 'translateY(-101%)'
+                    })
+                    popMat = 0;
+                }
+
+                if (e.which == 27 && popImage == 1) {
+                    jQuery('.pop-up-image').css({
+                        'visibility': 'hidden',
+                        'opacity': '0'
+                    });
+                    popImage = 0;
+                }
+            });
+        }
+
+        function openImage() {
+
+            jQuery('.image-activity').click(function () {
+                var linkImageSelected = jQuery(this).filter("img").attr("src");
+                console.log('ok');
+                jQuery('.image-pop-up').attr("src", linkImageSelected);
+
+                jQuery('.pop-up-image').css({
+                    'visibility': 'visible',
+                    'opacity': '1'
+                });
+                popImage = 1;
+
+            })
+
+
+
+        }
+
+        function closePopUPImage() {
+            jQuery('.pop-up-image').click(function () {
+                jQuery('.pop-up-image').css({
+                    'visibility': 'hidden',
+                    'opacity': '0'
+                });
+                popImage = 0;
+            });
+        }
+
+
+        var dataMats = {
+            "IA": {
+                "TITLE": "INTELIGENCIA ARTIFICIAL",
+                "SUBTITLE": "BIG DATA, MACHINE LEARNING, PYTHON",
+                "DESCRIPTION": [
+                    "La inteligencia artificial es un tema muy relevante en la actualidad, temas como machine learning, el aprendizaje supervisado y el no supervisado son temas que nos ayudan a crear cosas que pueden servir o ayudar a muchas personas en todo el mundo, todo basado en el gran conjunto de datos que se generan día a día."
+                ],
+                "IMAGEGRID": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/03/IA-grid.jpg",
+                "IMAGEHERO": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/03/hero-IA.jpg",
+                "ACTIVITYS": {
+                    "ACTIVITY1": {
+                        "TITLE": "TIC TAC TOE",
+                        "IMAGES": {
+                            "IMAGE1": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/tictactoe1-act1.png",
+                            "IMAGE2": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/tictactoe2-act1.png",
+                            "IMAGE3": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/tictactoe3-act1.png",
+                            "IMAGE4": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/tictactoe4-act1.png",
+                            "IMAGE5": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/code1-act1.png",
+                            "IMAGE7": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/code2-act1..png",
+                            "IMAGE8": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/code3-act1.png",
+                            "IMAGE9": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/code4-act1.png",
+                            "IMAGE10": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/code5-act1.png"
+                        },
+                        "DESCRIPTION": [
+                            "En esta actividad se tenía que entrenar a la computadora para que compitiera contra una persona, para llevar acabo esta actividad se hizo uso de un data set que contenía información de movimientos en varias partidas del juego en las cuales cada clase ganaba según los movimientos que se habían realizado, se hicieron pruebas con distintos modelos predictivos entre los cuales estaban el Árbol de decisiones, Regresión Lineal, El soporte de maquina Vectorial.",
+                            "En esta actividad implemente la parte grafica del juego en una interfaz web, mientras que el backend del modelo predictivo fue hecho con Python.",
+                            "Algo que implemente fue el hecho de que a medida que el juego avanzara se iba calculando la probabilidad de ganar de los tableros similares en el data set, esto debido a que en cada movimiento se podía bloquear la solución que se había predicho, por lo que, si pasaba eso, se buscaba predecir una nueva solución de acuerdo al estado actual."
+                        ],
+                        "REFLEXION": [
+                            "En esta actividad pude acercarme a lo que conlleva realizar un videojuego con inteligencia artificial, aun que el juego es muy básico, por dentro hacer que prediga bien los movimientos correctos es una tarea compleja, en esta actividad estuve apunto de hacer un sobreajuste para que la maquina ganara, pero es ahí donde se pierde la esencia, ya que intentar programar con programación determinista no muestra que la maquina tenga inteligencia, por ello deje el funcionamiento directamente a las predicciones realizadas por el modelo.",
+                            "Con este tipo de actividades que nos hacen ir más allá de lo que nos pide el profesor son las actividades que nos ayudan a descubrir e implementar cosas nuevas, nos abren la curiosidad para crear cosas nuevas e interesantes."
+                        ]
+                    },
+                    "ACTIVITY2": {
+                        "TITLE": "Migrantes e Inmigrantes",
+                        "IMAGES": {
+                            "IMAGE1": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/map1-act2.png",
+                            "IMAGE2": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/map2-act2.png",
+                            "IMAGE3": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/map3-act2.png",
+                            "IMAGE4": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/map4-act2.png",
+                            "IMAGE5": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/data-act2.png",
+                            "IMAGE7": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/code1-act2.png",
+                            "IMAGE8": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/code2-act2.png",
+                            "IMAGE9": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/code3-act2.png"
+                        },
+                        "DESCRIPTION": [
+                            "Esta actividad fue dictada por el profesor a modo de resolver o ayudar a un problema en el mundo real, buscando en diferentes sitios, encontramos un data set que contenía información de distintas muertes y desapariciones de personas inmigrantes e migrantes en distintas fronteras del mundo, esto me pareció interesante ya que con estos antecedentes de muertes con fechas y  la causa del hecho se habría la posibilidad de predecir áreas donde la gente estaba muriendo así como también la causa de la muerte.",
+                            "Con este data set se hicieron diversos agrupamientos de tipos de muertes de personas, así como por región, ubicación, lugar de origen, tipo de personas que habían 3, los cuales eran niños, mujeres y hombres.",
+                            "Los grupos o CLUSTERS se realizaron con el software WEKA, basándonos en el aprendizaje no supervisado, para ello utilice el algoritmo simple K-MEANS de muchos otros que ofrece WEKA",
+                            "Para mostrar los resultados de una manera mas interesante implemente una interfaz web con los datos de agrupamiento, la interfaz visual contenía un mapa con la librería de OpenLayers en el que se trazaron iconos los cuales mostraban distintos tipos de muertes en cada región del mundo."
+                        ],
+                        "REFLEXION": [
+                            "Creo que muchas veces intentamos hacer o inventar cosas divertidas o para nuestro beneficio, sin embargo, afuera en el mundo real hay muchas necesidades, hay personas que no tienen los beneficios o las capacidades de uno como estudiante tiene, es por eso que con esta actividad uno abre los ojos y empieza a ver esas necesidades afuera, y empezamos a pensar no solo en nosotros, sino en los demás.",
+                            "Esta Actividad podría ayudar a instituciones que se encargan de ayudar a migrantes e inmigrantes para evitar este tipo de situaciones, así estas instituciones podrían abordar dichas zonas e informara a los migrantes, hacerlos entender los riesgos y mas aun cuando llevan niños."
+                        ]
+                    },
+                    "ACTIVITY3": {
+                        "TITLE": "Crímenes en Boston",
+                        "IMAGES": {
+                            "IMAGE1": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/kaggle-crimeBoston-act3.png",
+                            "IMAGE2": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/dataSet-act3.png",
+                            "IMAGE3": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/code-part1-act3.png",
+                            "IMAGE4": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/code-part2-act3.png",
+                            "IMAGE5": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/code-part3-act3.png",
+                            "IMAGE6": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/accuracy-act3.png"
+                        },
+                        "DESCRIPTION": [
+                            "En esta actividad se nos introdujo a realizar la construcción de un clasificador para predecir las clases que tuviera el problema que eligiéramos.",
+                            "En mi caso elegí un data set que contenía datos de reportes de distintos crímenes en Boston, los datos en este data set contenía información desde el 14 de junio del 2015 hasta el 3 de septiembre del 2018 por lo que la información que se tenia era suficiente para crear un buen clasificador.",
+                            "La información del data set contiene columnas de Numero de Incidente, código de ofensa, código de grupo de ofensa, descripción de la ofensa, Distrito, Área de Reporte, disparos, fecha, año, mes, día de la semana, hora, parte de Informe uniforme de delitos, calle, latitud, longitud, ubicación.",
+                            "Lo primero en hacer fue limpiar los datos y eliminar aquellas columnas que no fueran necesarias",
+                            "Por lo que al final solo me quede solo con las columnas: Área de Reporte, mes, hora, latitud, longitud, día de la semana, y código de ofensa.",
+                            "Las clases utilizadas en este clasificador fueron la 3501 y la 706, las cuales eran persona desaparecida y robo de auto o automóvil respectivamente.",
+                            "El clasificador fue creado con KNeigborsClassifier y posteriormente entrenado, al hacer la prueba de exactitud se obtuvo un 0.94% lo cual es muy bueno."
+                        ],
+                        "REFLEXION": [
+                            "En este problema se aborda un tema que en ninguna etapa de mi educación pensé abordar, sin embargo este tipo de problemas son lo que hay en el mundo exterior por lo que ahora considero que no todo lo que me rodea es lo único que puede tener problemas y no es lo único en lo que pueda ayudar ya que más allá, más allá de donde acostumbramos ver, en el lugar menos pensado podemos ayudar con este tipo de conocimiento, solo falta mirar bien las necesidades de las personas y ver como aplicar este conocimiento para la ayuda."
+                        ]
+                    }
+                }
+            },
+            "CISCO": {
+                "TITLE": "protocolo de comunicaciones",
+                "SUBTITLE": "ACCESS LIST, VLAN, SWITCH CAPA 3",
+                "DESCRIPTION": [
+                    "El mundo siempre esta conectado por redes inalámbricas y alámbricas, la forma de configurarlos, las reglas que hay y como implementarlas, distintos tipos de dispositivos con distintas funciones y configuraciones. El beneficio de estar conectado es parte de lo que se consigue después de tener estos equipos perfectamente configurados"
+                ],
+                "IMAGEGRID": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/03/CISCO-grid.jpg",
+                "IMAGEHERO": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/03/hero-cisco.jpg",
+                "ACTIVITYS": {
+                    "ACTIVITY1": {
+                        "TITLE": "SWITCH CAPA 3",
+                        "IMAGES": {
+                            "IMAGE1": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/multi-capa1-act1.png",
+                            "IMAGE2": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/multi-capa2-act1.png"
+                        },
+                        "DESCRIPTION": [
+                            "En esta actividad hicimos uso de un SWITCH capa 3, Como sabemos los SWITCH capa 2 función con una tabla de direcciones MACS, este registra las direcciones MACS que están conectadas, así como el puerto al que esté conectado cierto dispositivo con cierta MAC. Así como también permite la asignación de VLANS a puertos específicos. ",
+                            "El SWITCH capa 3 permite hacer lo que una capa 2 y además permite el enrutamiento de paquetes mediante el direccionamiento lógico y el control de subredes.",
+                            "En esencia, la diferencia es el enrutamiento que permite la capa 3, asume la función de SWITCH y al mismo tiempo de ROUTER.",
+                            "En esta actividad usamos un SWITCH capa 3 y tres SWITCHES capa 2, cada SWITCH de los extremos tenía conectado 3 PCS. Se crearon 3 VLANS en los 4 ROUTERS, una se llama MTM, otra MTY y la ultima HILLO. El propósito de esta actividad era repartir los puertos para cada VLAN y lograr obtener conectividad entre dispositivos de la misma VLAN, y de las demás también. El enrutamiento se hizo creando 3 interfaces VLANS en el SWITCH capa 3 y asignándoles un direccionamiento para que cada host pudiera conectarse, todo esto sin necesidad de un ROUTER."
+                        ],
+                        "REFLEXION": [
+                            "Creo que hay tantas herramientas nuevas que ignoramos, en este caso usamos este dispositivo que puede hacer la función de 2, tal vez eso no ahorre dinero, pero dependiendo de la situación es que puede funcionar o no.",
+                            "Creo que debemos saber escoger nuestras herramientas, y saber cuales son en realidad nuestras necesidades para saber cuál será nuestra mejor opción, no solo en esta materia, si no afuera, en el mundo real."
+                        ]
+                    },
+                    "ACTIVITY2": {
+                        "TITLE": "VLANS",
+                        "IMAGES": {
+                            "IMAGE1": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/vlan1-act2.png",
+                            "IMAGE2": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/vlan2-act2.png"
+                        },
+                        "DESCRIPTION": [
+                            "En esta actividad nos introdujeron al tema de las VLANS, las VLANS son redes virtuales de AREA local, las VLANS pueden ayudar a segmentar una red por distintos tipos O niveles, por ejemplo, separar a PROFESORES y alumnos en la red, separar a directivos de empleados en una empresa. O cuando queremos restringir ciertos equipos solo a ciertos usuarios por seguridad.",
+                            "En esta actividad se usó un ROUTER para el direccionamiento, se crearon 3 VLANS, que son NY, MIAMI, MTY, el punto de esta actividad era repartir los puertos de los SWITCHES a cada VLAN y posteriormente comprobar la conexión de extremo a extremo de la red."
+                        ],
+                        "REFLEXION": [
+                            "Esta actividad me ayudo a comprender el como una red en la escuela o trabajo tiene mas implicaciones por detrás, no solo el funcionamiento de repartir conexión, si no el hecho de que se debe cuidar la información de ciertos recursos y que la red no solo implica navegar, sino que también es importante el área de seguridad, en la que las VLAN ayudan mucho ya que dividen la red para diferentes tipos de usuarios."
+                        ]
+                    },
+                    "ACTIVITY3": {
+                        "TITLE": "ACCESS LIST",
+                        "IMAGES": {
+                            "IMAGE1": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/accessList1-act3.png",
+                            "IMAGE2": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/accessList2-act3.png"
+                        },
+                        "DESCRIPTION": [
+                            "En esta actividad se hizo uso de las Access List, las Access List son muy útiles para restringir el acceso de ciertos dispositivos a otros medios de la red, aquí lo importante o lo interesante de una Access List es que puede permitir solo a cierto dispositivo y a los demás denegarlos o viceversa, igual algo importante es que ese manejo de accesos se pueden hacer por protocolos de red, se puede permitir el acceso a un medio solo por cierto protocolo, por ejemplo permitir por http pero no por https.",
+                            "La actividad consistió en crear una topología con 5 ROUTERS, los ROUTERS de los extremos tienen conectados 1 SWITICH, cada SWITCH tiene conectado algunos dispositivos host como pcs, en algunos casos un servidor, el punto de esta actividad era que hubiera conexión entre todos los dispositivos de la red, del mismo modo que todos pudieran acceder a un server por el puerto http, pero que solo una red pudiera acceder por https."
+                        ],
+                        "REFLEXION": [
+                            "El uso de Access list me deja claro que puede haber diferentes formas de administrar la seguridad de una red, en distintos niveles, la seguridad es primordial más en una empresa donde es probable que se requiera el uso de estas funciones.",
+                            "La configuración de una Access list tal vez sea un poco tediosa, pero es requerida para tener un buen concepto de lo que una empresa o institución quieren que tenga la persona que maneje la red donde distribuirán su información."
+                        ]
+                    }
+                }
+            },
+            "SC": {
+                "TITLE": "Servicio comunitario: Visión profesional",
+                "SUBTITLE": "LOCALIDAD DE LA LADRILLERA, EMPRENDIMIENTO, BORDADO",
+                "DESCRIPTION": [
+                    "En estas visitas se puede ver la gran necesidad que hay no solo en Montemorelos, si no en distintas partes, este tipo de actividades son las que generan conciencia a uno como persona."
+                ],
+                "IMAGEGRID": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/03/SC-grid.jpg",
+                "IMAGEHERO": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/03/hero-SC.jpg",
+                "ACTIVITYS": {
+                    "ACTIVITY1": {
+                        "TITLE": "Taller de emprendimiento",
+                        "IMAGES": {
+                            "IMAGE1": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/taller1.jpg",
+                            "IMAGE2": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/taller2.jpg",
+                            "IMAGE2": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/taller3.jpg"
+                        },
+                        "DESCRIPTION": [
+                            "En esta materia se realizaron distintos equipos para ayudar en la comunidad de la ladrillera como se realiza cada año, nuestro equipo fue realizado con la intención de ayudar a las personas de una forma emprendedora.",
+                            "La idea consistía en hacer que las personas, en este caso mujeres pudieran generar un dinero extra a sus bolsillos sin la necesidad de salir de casa, todo gracias al emprendimiento de distintos productos.",
+                            "Lo primero en lo que se pensó fue en el bordado y estampado de playeras con dibujos interesantes, dedicado al área juvenil.",
+                            "Al principio lo que se hizo fue recorrer toda el área de la ladrillera o la mayor parte para buscar mujeres o personas que les interesara ser parte del proyecto o que por lo menos les llamara la atención esta idea, por gracia de Dios había personas que ya tenían cierta experiencia en el estampado o bordado por lo que todo parecía estar saliendo de maravilla.",
+                            "Fueron casi 3 semanas en las que se estuvieron buscando personas para el proyecto y gracias a Dios se juntaron unas 12 personas, a las cuales se les junto para platicar bien como estaría el proyecto, y que ese tipo de proyectos era la forma de generar ingresos extras.",
+                            "Después de conseguir a las personas se les Asigno un kit de inicio, este kit contenía algunas bolas de hilos, aguja, tijeras, un poco de tela y se les dieron algunas playeras de distintos colores con superficies lisas, listas para ser estampadas.",
+                            "Pero antes de que iniciara el proceso e estampado, pasaron algunas semanas donde se practicaba en pedazos de tela distintos dibujos, también se les conoció un poco acerca de sus vidas, sus estilos de vida y sus gustos para que hubiera más confianza entre todos.",
+                            "Después de algunas semanas se empezó a estampar algunas playeras con los dibujos que se iban proponiendo."
+                        ],
+                        "REFLEXION": [
+                            "Con esta actividad me doy cuenta que la ayuda se puede dar de diversas maneras, a veces uno piensa que solo se ayuda dando dinero, o dando cosas materiales, pero algo que ayuda mucho es compartir el conocimiento, ayudar mentalmente con ideas y actitudes positivas es una excelente forma de ayudar a las personas."
+                        ]
+                    },
+                    "ACTIVITY2": {
+                        "TITLE": "Expo de servicio comunitario",
+                        "IMAGES": {
+                            "IMAGE1": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/expoE1.jpg",
+                            "IMAGE2": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/expoE2.jpg"
+                        },
+                        "DESCRIPTION": [
+                            "La exposición de servicio comunitario se organiza cada semestre, se presenta lo que cada equipo realizo para ayudar a la comunidad, en nuestro caso la comunidad de la ladrillera, de igual forma se presentan propuestas a proyecto futuro que podrían significar mucho en aquellas comunidades.",
+                            "En nuestro caso nos toco presentar las playeras que fueron estampadas por las integrantes del equipo, en la feria se expusieron todos los diseños, cada integrante del proyecto hizo por lo menos 2 playeras con destinitos tipos de puntadas en el estampado, lo cual hacía que cada playera tuviera un toque distinto.",
+                            "Algo interesante es el echo de que durante esta exposición se pudo ver el interés de jóvenes por los diseños, y eso debido a que algunos dibujos modernos tenían un estilo clásico artesanal por el bordado, eso hacia que los diseños fueran algo excéntricos."
+                        ],
+                        "REFLEXION": [
+                            "En esta actividad pudimos ver los resultados de este proyecto, y aun que fue la primera parte se pudo ver un gran avance en cuanto al interés de las personas, igual el hecho de que en tan poco tiempo se pudo unir a este equipo.",
+                            "Con esta actividad podemos decir que todo se puede lograr, y lo único que hace falta es una buena actitud, ganas de Salir adelante y mucha dedicación."
+                        ]
+                    }
+                }
+            },
+            "ADOO": {
+                "TITLE": "ANALISIS Y DISEÑO ORIENTADO A OBJETOS",
+                "SUBTITLE": "UML, DIAGRAMAS DE SECUENCIA, OPERADOR DE TELEFONIA",
+                "DESCRIPTION": [
+                    "La creación de software desde una planificación analítica, creando diagramas, modelos para que el software final complazca al cliente o usuario final."
+                ],
+                "IMAGEGRID": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/03/ADOO-grid.jpg",
+                "IMAGEHERO": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/03/hero-ADOO.jpg",
+                "ACTIVITYS": {
+                    "ACTIVITY1": {
+                        "TITLE": "Ejercicio Casa de Préstamos",
+                        "IMAGES": {
+                            "IMAGE1": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p1-act1.png",
+                            "IMAGE2": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p2-act1.png",
+                            "IMAGE3": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p3-act1.png"
+                        },
+                        "DESCRIPTION": [
+                            "En esta actividad se pidió realizar un diagrama de secuencia y de casos de uso de un problema o situación relacionado con una casa de préstamos, donde la casa de prestamos puede tener una o mas sucursales, muchos clientes, empleados etc.",
+                            "Lo requerido era identificar los casos de uso para realizar un diagrama."
+                        ],
+                        "REFLEXION": [
+                            "Esta actividad me fue interesante porqué son muchas cosas que se deben tomar en cuenta antes de crear un software grande y que uno como principiante suele ignorar."
+                        ]
+                    },
+                    "ACTIVITY2": {
+                        "TITLE": "Ejercicio de Empresa de Manufactura",
+                        "IMAGES": {
+                            "IMAGE1": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p1-act2.png",
+                            "IMAGE2": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p2-act2.png",
+                            "IMAGE3": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p3-act2.png"
+                        },
+                        "DESCRIPTION": [
+                            "En esta actividad el problema era una empresa de manufactura de la que se debía analizar e identificar casos de uso y clases para posteriormente obtener un diagrama de secuencia.",
+                            "Esta actividad tenia como objetivo que empezáramos a analizar bien un problema cuando se nos presentara en el mundo real."
+                        ],
+                        "REFLEXION": [
+                            "En esta actividad el problema era una empresa de manufactura de la que se debía analizar e identificar casos de uso y clases para posteriormente obtener un diagrama de secuencia.",
+                            "Esta actividad tenia como objetivo que empezáramos a analizar bien un problema cuando se nos presentara en el mundo real."
+                        ]
+                    },
+                    "ACTIVITY3": {
+                        "TITLE": "Proyecto TEL",
+                        "IMAGES": {
+                            "IMAGE1": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p1-act3.png",
+                            "IMAGE2": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p2-act3.jpg"
+                        },
+                        "DESCRIPTION": [
+                            "En esta actividad el profesor nos asigno por equipos distintas problemáticas para el desarrollo de un software, en nuestro caso nos toco realizar lo que es un software para administrar teléfonos móviles o sus funciones principales como llamadas y mensajes.",
+                            "El objetivo era controlar el crédito de los teléfonos, tener un conteo de llamadas y mensajes de cada usuario, permitir que un usuario pudiera recargar crédito, etc."
+                        ],
+                        "REFLEXION": [
+                            "Esta actividad me gusto porqué implantamos la practica con la teoría del análisis y es interesante como se mejora la idea a la hora de desarrollar un software."
+                        ]
+                    }
+                }
+            },
+            "DB": {
+                "TITLE": "Práctica profesional de programación en base de datos",
+                "SUBTITLE": "POSGRESS,  FUTBOL DB",
+                "DESCRIPTION": [
+                    "El uso de bases de datos puede ser fácil, pero hay otros lenguajes de manipulación de datos, así como hay muchas reglas que se deben seguir si se desea una base datos que sea completamente funcional."
+                ],
+                "IMAGEGRID": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/03/DB-grid.jpg",
+                "IMAGEHERO": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/03/hero-DB.jpg",
+                "ACTIVITYS": {
+                    "ACTIVITY1": {
+                        "TITLE": "BASE DE DATOS DE FUTBOL",
+                        "IMAGES": {
+                            "IMAGE1": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p1-act1-1.png",
+                            "IMAGE2": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p2-act1-1.png"
+                        },
+                        "DESCRIPTION": [
+                            "En Esta actividad el profesor dos dio un esquema de una base de datos relacionada con el futbol, esta base de datos contenía información de posición de juego, equipo de futbol, ciudad del equipo, el lugar de los partidos, información de los jugadores, país del equipo, movimientos de los jugadores durante los juegos y algunas tablas más.",
+                            "En esta actividad el objetivo era hacer distintos tipos de consultas SQL a modo que empezáramos a usar funciones mas complejas como por ejemplo el INNER JOIN, que es utilizado para unir tablas que tienen registros en común.",
+                            "Algunas de las consultas que se pedían eran como para encontrar el número de lugares para la Copa EURO 2016 de la tabla soccer_venue, para encontrar la fecha en que comenzó Football EURO cup 2016 de la tabla de muestra: match_mast."
+                        ],
+                        "REFLEXION": [
+                            "En esta actividad me doy cuenta de que el uso del base de datos no se limita a ningún área, o tema en específico, es usado en todo lugar que se requiera guardar una gran cantidad de registros.",
+                            "El uso de las bases de datos tampoco esta restringido a un solo lenguaje ya que hay muchos más, y es interesante como varían un poco en su sintaxis, mas el objetivo y el fin es el mismo."
+                        ]
+                    },
+                    "ACTIVITY2": {
+                        "TITLE": "SCRIPTS DE ÁLGEBRA RELACIONAL",
+                        "IMAGES": {
+                            "IMAGE1": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p1-act2-1.png",
+                            "IMAGE2": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p2-act2-1.png",
+                            "IMAGE3": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p3-act2-1.png"
+                        },
+                        "DESCRIPTION": [
+                            "En esta actividad el profesor nos proporcionó unas tablas con información de componentes de hardware de varias pcs, cada componente de hardware tenia su propia tabla según el tipo, donde contenía el modelo, el fabricante y la capacidad según fuera el componente.",
+                            "Las tablas que había era pc, cpu, memoria, disco, tgrafica.",
+                            "El objetivo de esta actividad era buscar relaciones entre los componentes del pc, así como la relación entre pcs.",
+                            "Algunas de las cosas que se pedían en esta actividad era obtener una relación de solo los modelos de PC 'completos' a la venta. Se requería toda la información disponible sobre los componentes que lo forman y ordenar el resultado de mayor a menor precio, o también obtener una relación de todos los PC que tuvieran CPUs de AMD y discos Samsung aquí se requería que toda la información disponible sobre los componentes que lo formaban."
+                        ],
+                        "REFLEXION": [
+                            "Esta actividad me gusto porque el ejemplo puesto o la información que teníamos que manipular es muy buena como, ya que relacionar computadoras y sus componentes es algo muy fácil de entender, por lo tanto, me parece un buen ejemplo puesto por el profesor."
+                        ]
+                    },
+                    "ACTIVITY3": {
+                        "TITLE": "EJERCICIOS [CIENTÍFICOS, ALMACENES, INVESTIGADORES]",
+                        "IMAGES": {
+                            "IMAGE1": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p1-act3-1.png",
+                            "IMAGE2": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p2-act3.png",
+                            "IMAGE3": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p3-act3.png"
+                        },
+                        "DESCRIPTION": [
+                            "En esta actividad el profesor nos proporciono el diagrama de una base de datos sobre Cientificos, Almacenes e investigadores.",
+                            "El propósito era crear consultas como sacar una relación completa de los científicos asignados a cada proyecto, Mostrar DNI, Nombre del científico, Identificador del proyecto y nombre del proyecto, obtener el número de proyectos al que está asignado cada científico."
+                        ],
+                        "REFLEXION": [
+                            "En esta actividad seguimos aprendiendo a crear consultas mas avanzadas por lo que me gusto ese aspecto de ir ahondando cada vez mas en la complejidad. "
+                        ]
+                    }
+                }
+            },
+            "ADC": {
+                "TITLE": "Administración contemporánea",
+                "SUBTITLE": "COMO CREAR UNA EMPRESA, TIPOS DE EMPRESAS",
+                "DESCRIPTION": [
+                    "La preparación de un egresado de cualquier carrera a veces no es suficiente si se quiere emprender, por ello se deben aprender cosas del ámbito empresarial para saber lo que conlleva tener un negocio propio."
+                ],
+                "IMAGEGRID": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/03/ADC-grid.jpg",
+                "IMAGEHERO": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/03/hero-adc.jpg",
+                "ACTIVITYS": {
+                    "ACTIVITY1": {
+                        "TITLE": "Requisitos para la creación de una empresa",
+                        "IMAGES": {
+                            "IMAGE1": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/Requisitos-para-crear-una-empresa-en-México-1.jpg",
+                            "IMAGE2": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/Requisitos-para-crear-una-empresa-en-México-2.jpg",
+                            "IMAGE3": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/Requisitos-para-crear-una-empresa-en-México-3.jpg"
+                        },
+                        "DESCRIPTION": [
+                            "En esta actividad se pidió hacer una investigación sobre lo que conlleva la creación de una empresa, desde requisitos hasta factores personales como el porque de querer formar una empresa.",
+                            "Algunos puntos que se pidieron fueron los pasos, procedimientos legales y fiscales, documentos, permisos y todo lo relacionado a la creación de una empresa."
+                        ],
+                        "REFLEXION": [
+                            "La creación de una empresa es algo muy padre, sobre todo si te gusta el área en el que quieres crear la empresa. En esta actividad me pude orientar un poco lo que necesito para iniciar una empresa."
+                        ]
+                    },
+                    "ACTIVITY2": {
+                        "TITLE": "Empresas social mente responsables",
+                        "IMAGES": {
+                            "IMAGE1": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/Empresas-socialmente-responsables-1.jpg",
+                            "IMAGE2": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/Empresas-socialmente-responsables-2.jpg"
+                        },
+                        "DESCRIPTION": [
+                            "Las empresas tienen que cumplir ciertos requisitos dentro del sector en que se manejan, tienen que pagar ciertos impuestos, hay instituciones que se encargan de regular todo esto.",
+                            "Las empresas socialmente responsables son las que cumplen con un conjunto de normas y principios referentes a la realidad social, económica y ambiental que se basa en valores, que le ayudan a ser más productiva. ",
+                            "Algunas directrices que tiene una empresa socialmente responsable son: Respeto a la dignidad de la persona, Empleo digno, Solidaridad, Subsidiariedad, Contribución al bien común, Corresponsabilidad, Confianza, Ética en los negocios, Prevención de negocios ilícitos, Vinculación con la comunidad, Transparencia, Honestidad y legalidad, Justicia y equidad, Empresarialidad, Desarrollo social, Calidad de Vida y Cuidado del Medio Ambiente."
+                        ],
+                        "REFLEXION": [
+                            "En esta actividad conocí un poco sobre lo que una empresa debe tener en cuenta, a veces el dinero o lo material esta por encima de lo humano, y eso no es correcto, se rompen valores y derechos, por lo tanto, este tema es interesante conocerlo para saber cuando una empresa esta haciendo bien las cosas y cuando no."
+                        ]
+                    },
+                    "ACTIVITY3": {
+                        "TITLE": "Visita a TERNIUM y a la secretaria de economía y trabajo",
+                        "IMAGES": {
+                            "IMAGE1": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/visita-a-secretaria-de-economia-1.jpg",
+                            "IMAGE2": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/visita-a-secretaria-de-economia-2.jpg",
+                            "IMAGE3": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/visita-a-secretaria-de-economia-3.jpg",
+                            "IMAGE4": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/Visita-a-Ternium-1.jpg"
+                        },
+                        "DESCRIPTION": [
+                            "En esta visita tuvimos la oportunidad de conocer TERNIUM, la cual es una empresa productora de aceros planos y largos.",
+                            "El objetivo era saber como esta estructurada una empresa real por dentro, como se maneja cada área, como se interconecta y comunica cada área con una y otra, y las normas que se aplican dentro, por ejemplo, ternium tiene que tener muy tomada en cuenta el área de seguridad ya que manejan materiales a altas temperaturas y en cualquier momento puede haber un accidente, por lo que es mejor prevenirlos ya que esto puede meterlos en muchos problemas.",
+                            "La visita a la secretaria de economía fue una actividad destinada al tema de la creación de una empresa, el objetivo era conocer directamente de los profesionales del área del sector económico lo que conlleva crear una empresa, las responsabilidades, los requisitos, las pautas e ideas que hay que tener en cuenta antes de querer iniciar un negocio propio que se regule de manera legal."
+                        ],
+                        "REFLEXION": [
+                            "Esta visita me gusto mucho, sobre todo la de la secretaria de economía ya que nos motivaron diciendo que para crear una empresa no se necesita mas que ganas, una idea clara de lo que se quiere y mucho esfuerzo.",
+                            "Eso me abrió la idea de tantas cosas de mi área que se pueden aprovechar para crear una empresa."
+                        ]
+                    }
+                }
+            },
+            "SO": {
+                "TITLE": "Sistemas Operativos",
+                "SUBTITLE": "Terminal Linux, Servicios, Arquitecturas",
+                "DESCRIPTION": [
+                    "Cada sistema operativo funciona de una manera distinta y cada uno puede estar destinado para distintos usos o distintos tipos de usuarios."
+                ],
+                "IMAGEGRID": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/SO-grid.jpg",
+                "IMAGEHERO": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/hero-SO.jpg",
+                "ACTIVITYS": {
+                    "ACTIVITY1": {
+                        "TITLE": "Investigación, exposición e instalación de un SO",
+                        "IMAGES": {
+                            "IMAGE1": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p1.jpg",
+                            "IMAGE2": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p2.jpg",
+                            "IMAGE3": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p3.jpg",
+                            "IMAGE4": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p4.jpg",
+                            "IMAGE5": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p5.jpg",
+                            "IMAGE6": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p6.jpg",
+                            "IMAGE7": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p7.jpg",
+                            "IMAGE8": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p8.jpg",
+                            "IMAGE9": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p9.jpg",
+                            "IMAGE10": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p10.jpg",
+                            "IMAGE11": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p11.jpg",
+                            "IMAGE12": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p12.jpg",
+                            "IMAGE13": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p13.jpg",
+                            "IMAGE14": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p14.jpg",
+                            "IMAGE15": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p15.jpg",
+                            "IMAGE16": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p16.jpg",
+                            "IMAGE17": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p17.jpg",
+                            "IMAGE18": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p18.jpg",
+                            "IMAGE19": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p19.jpg",
+                            "IMAGE20": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p20.jpg",
+                            "IMAGE21": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p21.jpg",
+                            "IMAGE22": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p22.jpg",
+                            "IMAGE23": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p23.jpg",
+                            "IMAGE24": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p24.jpg",
+                            "IMAGE25": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p25.jpg",
+                            "IMAGE26": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p26.jpg",
+                            "IMAGE27": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p27.jpg",
+                            "IMAGE28": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p28.jpg",
+                            "IMAGE29": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p29.jpg",
+                            "IMAGE30": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p30.jpg",
+                            "IMAGE31": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p31.jpg",
+                            "IMAGE32": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p32.jpg",
+                            "IMAGE33": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p33.jpg",
+                            "IMAGE34": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p34.jpg",
+                            "IMAGE35": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p35.jpg",
+                            "IMAGE36": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p36.jpg",
+                            "IMAGE37": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p37.jpg",
+                            "IMAGE38": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p38.jpg",
+                            "IMAGE39": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p39.jpg"
+                        },
+                        "DESCRIPTION": [
+                            "En esta actividad tuvimos que elegir un sistema operativo de una lista proporcionada por el profesor, una vez elegido teníamos que investigar todo lo posible sobre ese sistema operativo: una Breve historia y su evolución, Su arquitectura, Su interface gráfica, sus requerimientos de recursos, fortalezas y debilidades, los lenguajes para crear aplicaciones nativas, ambientes y herramientas de desarrollo etc.",
+                            "Yo elegí Android el cual ejecute mediante Virtual box y sobre el cual hable ya que es un sistema muy interesante y que ha revolucionado el mercado de los teléfonos móviles."
+                        ],
+                        "REFLEXION": [
+                            "Me gusto esta actividad ya que el entorno Android me gusta mucho y he trabajado un poco en él, entonces hablar sobre el fue algo interesante y divertido."
+                        ]
+                    },
+                    "ACTIVITY2": {
+                        "TITLE": "Instalación y configuración de servicios en Linux",
+                        "IMAGES": {
+                            "IMAGE1": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/SFTP_page-0001.jpg",
+                            "IMAGE2": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/SFTP_page-0002.jpg",
+                            "IMAGE3": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/SFTP_page-0003.jpg",
+                            "IMAGE4": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/SSH-en-Ubuntu_page-0001.jpg",
+                            "IMAGE5": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/SSH-en-Ubuntu_page-0002.jpg"
+                        },
+                        "DESCRIPTION": [
+                            "En esta actividad nos adentramos en el uso de Linux y el uso de servicios desde el bash de Linux.",
+                            "El objetivo era configurar servicios como SSH, FTP y NFS, HTTP, SMTP, DHCP y DNS y posteriormente usarlos entre 2 personas dentro del salón de clases para comprobar el correcto funcionamiento."
+                        ],
+                        "REFLEXION": [
+                            "Esta actividad nos abrió el panorama de la gran cantidad de cosas que se pueden hacer con la terminal de Linux, y es que es el corazón de Linux o es donde todo se hacia antes, por lo tanto, creo que es muy importante saber usarla y dominarla."
+                        ]
+                    },
+                    "ACTIVITY3": {
+                        "TITLE": "Montaje de un servidor Linux",
+                        "IMAGES": {
+                            "IMAGE1": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p1-act3.jpg",
+                            "IMAGE2": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p2-act3-1.jpg",
+                            "IMAGE3": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p3-act3.jpg",
+                            "IMAGE4": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p4-act3.jpg",
+                            "IMAGE5": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p5-act3.jpg",
+                            "IMAGE6": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p6-act3.jpg",
+                            "IMAGE7": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p7-act3.jpg",
+                            "IMAGE8": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p8-act3.jpg",
+                            "IMAGE9": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p9-act3.jpg",
+                            "IMAGE10": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p10-act3.jpg",
+                            "IMAGE11": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p11-act3.jpg",
+                            "IMAGE12": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p12-act3.jpg",
+                            "IMAGE13": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p13-act3.jpg",
+                            "IMAGE14": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/p14-act3.jpg"
+                        },
+                        "DESCRIPTION": [
+                            "En esta actividad se pidió crear un servidor para poder instalar WordPress, todo hecho desde la terminal de Linux.",
+                            "El objetivo era saber como funciona un servidor, los permisos que se deben tener, el funcionamiento de los puertos, y como es importante la cuestión de ser multiusuario en el caso de WordPress que puede requerir que muchas personas puedan tener su propio dominio o subdominio."
+                        ],
+                        "REFLEXION": [
+                            "Me gusto porque normalmente esto se pudo haber hecho con softwares como XAMP o WAMP pero esto nos ayuda a entender un poco del funcionamiento de estos softwares por dentro lo cual es super interesante."
+                        ]
+                    }
+                }
+            },
+            "DH": {
+                "TITLE": "Temas selectos del devenir histórico",
+                "SUBTITLE": "Elena G. White, Mensaje de esperanza",
+                "DESCRIPTION": [
+                    "La historia tiene muchos puntos aun sin una clara explicación, es por ello que es necesario investigar los hechos y todo lo relacionado para tener las respuestas claras."
+                ],
+                "IMAGEGRID": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/BIBLE-grid.jpg",
+                "IMAGEHERO": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/hero-BIBLE.jpg",
+                "ACTIVITYS": {
+                    "ACTIVITY1": {
+                        "TITLE": "Línea del tiempo de elena G White",
+                        "IMAGES": {
+                            "IMAGE1": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/timeline_page-0001.jpg"
+                        },
+                        "DESCRIPTION": [
+                            "En esta actividad se pidió que investigáramos los sucesos de la vida de elena G. White y posteriormente creáramos una línea del tiempo con sus respectivos datos.",
+                            "La creación de la línea del tiempo incluía hechos no solo de ella, si no de las personas que le relacionaban como su esposo y algunos de sus hijos."
+                        ],
+                        "REFLEXION": [
+                            "Esta actividad me ayudo a conocer un poco del porque la iglesia usa mucho los escritos de elena G. White para explicar hechos de la biblia, ya que por mi parte no tengo mucha experiencia en el tema."
+                        ]
+                    },
+                    "ACTIVITY2": {
+                        "TITLE": "Publicación en redes Sociales",
+                        "IMAGES": {
+                            "IMAGE1": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/publicacion_page-0001.jpg"
+                        },
+                        "DESCRIPTION": [
+                            "En esta actividad se nos pidió publicar algún versículo en nuestras redes sociales para mostrarle a las personas un poco de la palabra de Dios.",
+                            "En mi caso elegí hebreos 11:1, que dice LA FE ES LA GARANTÍA DE LO QUE SE ESPERA, LA CERTEZA DE LO QUE NO SE VE."
+                        ],
+                        "REFLEXION": [
+                            "Me gusto porque pude compartir un poco de lo que creo con personas que tal vez no estén tan cerca o que no conozcan a Dios o lo amoroso que es."
+                        ]
+                    },
+                    "ACTIVITY3": {
+                        "TITLE": "Poster",
+                        "IMAGES": {
+                            "IMAGE1": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/poster_page-0001.jpg"
+                        },
+                        "DESCRIPTION": [
+                            "En esta actividad Realizamos un poster el cual debíamos pegar en un área donde fuera lo mas visto posible dando un mensaje de esperanza.",
+                            "Mi equipo y yo decidimos usar Salmos 51: 2 que dice Lávame de la culpa hasta que quede limpio y purifícame de mis pecados.",
+                            "El poster fue pegado en la puerta del laboratorio de ingeniería industrial de la universidad."
+                        ],
+                        "REFLEXION": [
+                            "Me gusta saber que con tan solo un poster con este tipo de contenido podemos levantar un poco el animo a personas que tal vez tengan un mal día o que tengan problemas, este tipo de mensajes aun que no lo parezca pueden llegar a ayudar mucho."
+                        ]
+                    }
+                }
+            }
+        }
+
+    </script>
+</body>
+
+</html>
