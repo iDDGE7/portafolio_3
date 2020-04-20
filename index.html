@@ -25,9 +25,12 @@
                     </div>
                 </div>
                 <div class="portafolio-hero">
-                    <a href="https://eduardoddg60.wixsite.com/misitio/portafolio-1" target="_blank" class="link-portafolio-hero">PORTAFOLIO 1</a>
-                    <a href="https://ixsxddhztr5zfzwra5jzpq-on.drv.tw/Portafolio/port%202%20pages/menu.html" target="_blank" class="link-portafolio-hero">PORTAFOLIO 2</a>
-                    <a href="http://portafoliosfit.um.edu.mx/edgardedios/portafolio-3/" target="_blank" class="link-portafolio-hero">PORTAFOLIO 3</a>
+                    <a href="https://eduardoddg60.wixsite.com/misitio/portafolio-1" target="_blank"
+                        class="link-portafolio-hero">PORTAFOLIO 1</a>
+                    <a href="https://ixsxddhztr5zfzwra5jzpq-on.drv.tw/Portafolio/port%202%20pages/menu.html"
+                        target="_blank" class="link-portafolio-hero">PORTAFOLIO 2</a>
+                    <a href="http://portafoliosfit.um.edu.mx/edgardedios/portafolio-3/" target="_blank"
+                        class="link-portafolio-hero">PORTAFOLIO 3</a>
                 </div>
             </div>
         </div>
@@ -36,7 +39,8 @@
 
     <div class="pop-up-materias">
         <div class="close-popup">
-            <img src="http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/buttonClose.png" alt="">
+            <img src="http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/buttonClose.png"
+                alt="">
         </div>
         <div class="hero-pop">
             <div class="center-content-hero">
@@ -52,11 +56,9 @@
             <img class="image-pop-up" src="" alt="">
         </div>
     </div>
-
-    <script
-  src="https://code.jquery.com/jquery-3.5.0.min.js"
-  integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
-  crossorigin="anonymous"></script>
+    <script src=""></script>
+    <script src="https://code.jquery.com/jquery-3.5.0.min.js"
+        integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
     <script type="module">
         var popMat;
         var popImage;
@@ -108,9 +110,9 @@
                     jQuery('#sectionsMat').html() +
                     '<div class="section-mat">' +
                     '<div class="section-content-activity">' +
-                    '<div class="center-info-activity">' +
+                    '<div class="center-info-activity" >' +
                     '<div class="content-slider-activity" id="slideN' + numberSlider + '"></div>' +
-                    '<div class="content-info-activity">' +
+                    '<div class="content-info-activity" id="COOA' + numberSlider + '">' +
                     '<p class="title-activity">' + activitysMats[activity].TITLE + '</p>' +
                     '<p class="description-activity">' + activitysMats[activity].DESCRIPTION + '</p>' +
                     '</div>' +
@@ -129,6 +131,15 @@
                         '<div class="silde-image-activity">' +
                         '<img class="image-activity" src="' + imagesinSlider[image] + '" alt="">' +
                         '</div>'
+                    );
+                }
+
+                var repoLink = activitysMats[activity].GITREPO;
+                if (typeof repoLink !== 'undefined') {
+                    jQuery('#COOA' + numberSlider).html(jQuery('#COOA' + numberSlider).html() +
+                        '<a class="button-code" href="' + repoLink.link + '" target="_blank">' +
+                        'CODE IN GITHUB' +
+                        '</a>'
                     );
                 }
 
@@ -204,6 +215,11 @@
             });
         }
 
+        function addScript(src) {
+            var scriptNew = document.createElement('script');
+            scriptNew.setAttribute('src', src);
+            return scriptNew;
+        }
 
         var dataMats = {
             "IA": {
@@ -228,6 +244,9 @@
                             "IMAGE9": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/code4-act1.png",
                             "IMAGE10": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/code5-act1.png"
                         },
+                        "GITREPO": {
+                            "link": "https://github.com/iDDGE7/TIC-TAC-TOE"
+                        },
                         "DESCRIPTION": [
                             "En esta actividad se tenía que entrenar a la computadora para que compitiera contra una persona, para llevar acabo esta actividad se hizo uso de un data set que contenía información de movimientos en varias partidas del juego en las cuales cada clase ganaba según los movimientos que se habían realizado, se hicieron pruebas con distintos modelos predictivos entre los cuales estaban el Árbol de decisiones, Regresión Lineal, El soporte de maquina Vectorial.",
                             "En esta actividad implemente la parte grafica del juego en una interfaz web, mientras que el backend del modelo predictivo fue hecho con Python.",
@@ -250,6 +269,9 @@
                             "IMAGE8": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/code2-act2.png",
                             "IMAGE9": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/code3-act2.png"
                         },
+                        "GITREPO": {
+                            "link": "https://github.com/iDDGE7/MIGRANTES-E-INMIGRANTE.git"
+                        },
                         "DESCRIPTION": [
                             "Esta actividad fue dictada por el profesor a modo de resolver o ayudar a un problema en el mundo real, buscando en diferentes sitios, encontramos un data set que contenía información de distintas muertes y desapariciones de personas inmigrantes e migrantes en distintas fronteras del mundo, esto me pareció interesante ya que con estos antecedentes de muertes con fechas y  la causa del hecho se habría la posibilidad de predecir áreas donde la gente estaba muriendo así como también la causa de la muerte.",
                             "Con este data set se hicieron diversos agrupamientos de tipos de muertes de personas, así como por región, ubicación, lugar de origen, tipo de personas que habían 3, los cuales eran niños, mujeres y hombres.",
@@ -270,6 +292,9 @@
                             "IMAGE4": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/code-part2-act3.png",
                             "IMAGE5": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/code-part3-act3.png",
                             "IMAGE6": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/accuracy-act3.png"
+                        },
+                        "GITREPO": {
+                            "link": "https://github.com/iDDGE7/cr-menes-en-boston.git"
                         },
                         "DESCRIPTION": [
                             "En esta actividad se nos introdujo a realizar la construcción de un clasificador para predecir las clases que tuviera el problema que eligiéramos.",
