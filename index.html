@@ -9,11 +9,47 @@
 </head>
 
 <body>
+    <div class="wrapper-spinner">
+        <div class="center-spinner">
+            <svg class="circle1 shape" width="584" height="584" viewBox="0 0 584 584" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <circle cx="292" cy="292" r="291.5" stroke="#5524E2" />
+            </svg>
+
+            <svg class="circle2 shape" width="378" height="378" viewBox="0 0 378 378" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <circle cx="189" cy="189" r="188.5" stroke="#FFD600" />
+            </svg>
+
+            <svg class="triangle shape" width="107" height="93" viewBox="0 0 107 93" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="M53.5 0L106.761 92.25H0.239437L53.5 0Z" fill="#5524E2" />
+            </svg>
+
+        </div>
+    </div>
+
+    <header class="header">
+        <div class="center-header">
+            <nav class="nav">
+                <a href="http://portafoliosfit.um.edu.mx/edgardedios" class="link-nav-hero">INICIO</a>
+                <a href="https://eduardoddg60.wixsite.com/misitio/portafolio-1" target="_blank"
+                    class="link-nav-hero">PORTAFOLIO 1</a>
+                <a href="https://ixsxddhztr5zfzwra5jzpq-on.drv.tw/Portafolio/port%202%20pages/menu.html" target="_blank"
+                    class="link-nav-hero">PORTAFOLIO 2</a>
+            </nav>
+        </div>
+
+    </header>
     <div class="wrapper-full">
         <div class="hero-section sections" id="inicio">
             <div class="center-content-hero">
                 <div class="nav-hero">
                     <a href="http://portafoliosfit.um.edu.mx/edgardedios" class="link-nav-hero">INICIO</a>
+                    <a href="https://eduardoddg60.wixsite.com/misitio/portafolio-1" target="_blank"
+                        class="link-nav-hero">PORTAFOLIO 1</a>
+                    <a href="https://ixsxddhztr5zfzwra5jzpq-on.drv.tw/Portafolio/port%202%20pages/menu.html"
+                        target="_blank" class="link-nav-hero">PORTAFOLIO 2</a>
                 </div>
                 <div class="content-hero">
                     <div class="slider-container" id="contentSlider">
@@ -24,24 +60,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="portafolio-hero">
-                    <a href="https://eduardoddg60.wixsite.com/misitio/portafolio-1" target="_blank"
-                        class="link-portafolio-hero">PORTAFOLIO 1</a>
-                    <a href="https://ixsxddhztr5zfzwra5jzpq-on.drv.tw/Portafolio/port%202%20pages/menu.html"
-                        target="_blank" class="link-portafolio-hero">PORTAFOLIO 2</a>
-                    <a href="http://portafoliosfit.um.edu.mx/edgardedios/portafolio-3/" target="_blank"
-                        class="link-portafolio-hero">PORTAFOLIO 3</a>
-                </div>
             </div>
         </div>
     </div>
-
-
     <div class="pop-up-materias">
-        <div class="close-popup">
-            <img src="http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/buttonClose.png"
-                alt="">
-        </div>
+
         <div class="hero-pop">
             <div class="center-content-hero">
                 <h1 class="title-mat">INTELIGENCIA ARTIFICIAL</h1>
@@ -49,6 +72,16 @@
         </div>
         <div class="container-sections-mats" id="sectionsMat">
         </div>
+    </div>
+    <div class="close-popup">
+        <svg width="39" height="39" viewBox="0 0 39 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="19.5" cy="19.5001" r="13.5" transform="rotate(45 19.5 19.5001)" fill="white" />
+            <rect x="12.1875" y="15.1357" width="3.375" height="16.25" rx="1.6875"
+                transform="rotate(-45 12.1875 15.1357)" fill="#2C2C2C" />
+            <rect x="23.6758" y="12.374" width="3.375" height="16.25" rx="1.6875" transform="rotate(45 23.6758 12.374)"
+                fill="#2C2C2C" />
+        </svg>
+
     </div>
 
     <div class="pop-up-image">
@@ -62,6 +95,8 @@
     <script type="module">
         var popMat;
         var popImage;
+        var nowId;
+
         jQuery(document).ready(function () {
             popMat = 0;
             popImage = 0;
@@ -69,7 +104,8 @@
             closePopUP();
             openImage();
             closePopUPImage();
-            console.log(dataMats);
+            events();
+            spinner();
         });
 
         function gridPortafolio() {
@@ -112,6 +148,7 @@
                     '<div class="section-content-activity">' +
                     '<div class="center-info-activity" >' +
                     '<div class="content-slider-activity" id="slideN' + numberSlider + '"></div>' +
+                    '<div class="bar-buttons-images" id="barButtons' + numberSlider + '"></div>' +
                     '<div class="content-info-activity" id="COOA' + numberSlider + '">' +
                     '<p class="title-activity">' + activitysMats[activity].TITLE + '</p>' +
                     '<p class="description-activity">' + activitysMats[activity].DESCRIPTION + '</p>' +
@@ -126,13 +163,70 @@
                 );
 
                 var imagesinSlider = activitysMats[activity].IMAGES;
+                var imageSlider = 1;
+                var idImage = '';
+                var arrayidImages = [];
                 for (var image in imagesinSlider) {
+                    idImage = numberSlider + 'idIMG' + imageSlider;
                     jQuery('#slideN' + numberSlider).html(jQuery('#slideN' + numberSlider).html() +
-                        '<div class="silde-image-activity">' +
+                        '<div class="silde-image-activity" id="' + idImage + '">' +
+                        '<a class="button-openImage" href="' + imagesinSlider[image] + '">' +
+                        '<img class="icon-open-image" src="./show.svg">' +
+                        '</a>' +
                         '<img class="image-activity" src="' + imagesinSlider[image] + '" alt="">' +
                         '</div>'
                     );
-                }
+                    imageSlider++;
+                    arrayidImages.push(idImage);
+                };
+
+                console.log(arrayidImages);
+
+                jQuery('#barButtons' + numberSlider).html(jQuery('#barButtons' + numberSlider).html() +
+                    '<a class="buttons-images button-previous" href="#' + arrayidImages[1] + '"><</a>' +
+                    '<a class="buttons-images button-next" href="#' + arrayidImages[0] + '">></a>'
+                );
+
+                jQuery('.buttons-images').click(function (e) {
+                    var classButton = jQuery(this).attr('class').split(' ')[1];
+                    nowId = jQuery(this).attr('href');
+                    if (classButton == 'button-next') {
+                        var indexSlide = nowId.substring(1, 2);
+                        var indexImage = nowId.substring(7, nowId.length);
+                        indexImage = parseInt(indexImage);
+                        indexImage++;
+                        indexImage = indexImage.toString();
+                        var newIdNext = '#' + indexSlide + 'idIMG' + indexImage;
+                        if (jQuery(newIdNext).html()) {
+                            jQuery(this).attr('href', newIdNext);
+                            jQuery(this).prev('.button-previous').attr('href', nowId);
+                        }
+
+                    } else {
+                        var indexSlide = nowId.substring(1, 2);
+                        var indexImage = nowId.substring(7, nowId.length);
+                        indexImage = parseInt(indexImage);
+                        indexImage--;
+                        indexImage = indexImage.toString();
+                        var newIdPrev = '#' + indexSlide + 'idIMG' + indexImage;
+                        if (jQuery(newIdPrev).html()) {
+                            jQuery(this).attr('href', newIdPrev);
+                            jQuery(this).next('.button-next').attr('href', nowId);
+                            // console.log(nowId)
+                        }
+                    }
+
+                })
+
+                // var indexButton = 1;
+                // for (var idButton in arrayidImages) {
+                //     jQuery('#barButtons' + numberSlider).html(jQuery('#barButtons' + numberSlider).html() +
+                //         '<a class="buttons-images" href="#' + arrayidImages[idButton] + '">' + indexButton + '</a>'
+                //     );
+                //     indexButton++;
+                // }
+
+
 
                 var repoLink = activitysMats[activity].GITREPO;
                 if (typeof repoLink !== 'undefined') {
@@ -150,6 +244,7 @@
 
         function openMat() {
             jQuery('.button-open-math').click(function () {
+                jQuery('.pop-up-materias').scrollTop(0);
                 var matSelected = jQuery(this).attr('data-value');
                 loadDataMat(matSelected);
 
@@ -157,6 +252,10 @@
                     'transform': 'translateY(0%)'
                 })
                 popMat = 1;
+                jQuery('.close-popup').css({
+                    'visibility': 'visible',
+                    'opacity': '1'
+                })
             })
         }
 
@@ -166,6 +265,10 @@
                     'transform': 'translateY(-101%)'
                 })
                 popMat = 0;
+                jQuery('.close-popup').css({
+                    'visibility': 'hidden',
+                    'opacity': '0'
+                })
             });
 
             jQuery(document).keyup(function (e) {
@@ -187,10 +290,9 @@
         }
 
         function openImage() {
-
-            jQuery('.image-activity').click(function () {
-                var linkImageSelected = jQuery(this).filter("img").attr("src");
-                console.log('ok');
+            jQuery('.button-openImage').click(function (e) {
+                e.preventDefault();
+                var linkImageSelected = jQuery(this).attr("href");
                 jQuery('.image-pop-up').attr("src", linkImageSelected);
 
                 jQuery('.pop-up-image').css({
@@ -198,11 +300,7 @@
                     'opacity': '1'
                 });
                 popImage = 1;
-
             })
-
-
-
         }
 
         function closePopUPImage() {
@@ -294,7 +392,7 @@
                             "IMAGE6": "http://portafoliosfit.um.edu.mx/edgardedios/wp-content/uploads/sites/102/2020/04/accuracy-act3.png"
                         },
                         "GITREPO": {
-                            "link": "https://github.com/iDDGE7/cr-menes-en-boston.git"
+                            "link": "https://github.com/iDDGE7/MIGRANTES-E-INMIGRANTE.git"
                         },
                         "DESCRIPTION": [
                             "En esta actividad se nos introdujo a realizar la construcción de un clasificador para predecir las clases que tuviera el problema que eligiéramos.",
@@ -748,6 +846,45 @@
             }
         }
 
+        function events() {
+            jQuery(window).scroll(function () {
+                var scroll = jQuery(window).scrollTop();
+                if (scroll >= 215) {
+                    jQuery('.header').css({
+                        'transform': 'translateY(0)'
+                    });
+                } else {
+                    jQuery('.header').css({
+                        'transform': 'translateY(-100%)'
+                    });
+                }
+            })
+
+
+
+        }
+
+        function spinner() {
+
+            jQuery('.wrapper-spinner').animate({
+                'top': '-100%',
+            }, 2000);
+
+            setTimeout(function () {
+                jQuery('.circle1').children('circle').css({
+                    'animation': 'initial'
+                });
+                jQuery('.circle2').children('circle').css({
+                    'animation': 'initial'
+                });
+                jQuery('.triangle').css({
+                    'animation': 'initial'
+                });
+                jQuery('.triangle').children('path').css({
+                    'animation': 'initial'
+                });
+            }, 2000)
+        }
     </script>
 </body>
 
