@@ -64,54 +64,57 @@ html {
             width: 100%;
             height: 100%;
 
-            circle{
-               animation: circle1Animation 0.5s infinite alternate-reverse; 
+            circle {
+                animation: circle1Animation 0.5s infinite alternate-reverse;
             }
         }
         .circle2 {
             width: 50%;
             height: 50%;
-            circle{
-                animation: circle2Animation 0.5s infinite alternate-reverse; 
-             }
+            circle {
+                animation: circle2Animation 0.5s infinite alternate-reverse;
+            }
         }
         .triangle {
             width: 20%;
             height: 20%;
-            animation: triangleRotate 1.5s infinite linear; 
-            path{
-                animation: triangleAnimation 0.5s infinite alternate-reverse; 
-             }
+            animation: triangleRotate 1.5s infinite linear;
+            path {
+                animation: triangleAnimation 0.5s infinite alternate-reverse;
+            }
         }
 
-
         @keyframes circle1Animation {
-            from{
-                stroke: #FFD600 ;
-            }to{
-                stroke: #5524E2;
+            from {
+                stroke: #ffd600;
+            }
+            to {
+                stroke: #5524e2;
             }
         }
 
         @keyframes circle2Animation {
-            from{
-                stroke: #5524E2 ;
-            }to{
-                stroke: #FFD600;
+            from {
+                stroke: #5524e2;
+            }
+            to {
+                stroke: #ffd600;
             }
         }
 
         @keyframes triangleAnimation {
-            from{
-                fill: #5524E2 ;
-            }to{
-                fill: #FFD600;
+            from {
+                fill: #5524e2;
+            }
+            to {
+                fill: #ffd600;
             }
         }
         @keyframes triangleRotate {
-            from{
+            from {
                 transform: translate(-50%, -50%) rotate(0deg);
-            }to{
+            }
+            to {
                 transform: translate(-50%, -50%) rotate(360deg);
             }
         }
@@ -196,7 +199,7 @@ html {
 
     .hero-section {
         width: 100%;
-        max-width: 2560px;
+        // max-width: 2560px;
         padding: 20vh 0;
         display: flex;
         justify-content: center;
@@ -447,6 +450,45 @@ html {
                         }
                     }
                 }
+
+                .title-page {
+                    position: relative;
+                    width: 100%;
+                    min-height: 55vh;
+
+                    display: flex;
+
+                    h1 {
+                        font-family: Poppins;
+                        font-style: normal;
+                        font-weight: bold;
+                        font-size: 96px;
+                        line-height: 110px;
+                        display: flex;
+                        align-items: center;
+                        text-transform: uppercase;
+                        color: rgba(255, 255, 255, 0.8);
+
+                        max-width: 800px;
+
+                        @media screen and (max-width: 940px) {
+                            font-size: 86px;
+                            line-height: 134px;
+                        }
+                        @media screen and (max-width: 824px) {
+                            font-size: 56px;
+                            line-height: 74px;
+                        }
+                        @media screen and (max-width: 556px) {
+                            font-size: 36px;
+                            line-height: 54px;
+                        }
+                        @media screen and (max-width: 360px) {
+                            font-size: 26px;
+                            line-height: 34px;
+                        }
+                    }
+                }
             }
             .portafolio-hero {
                 width: 100%;
@@ -497,6 +539,62 @@ html {
                         &:not(:first-child) {
                             margin-left: 30px;
                         }
+                    }
+                }
+            }
+        }
+    }
+
+    .section-content-project {
+        width: 100%;
+        background-color: rgb(255, 255, 255);
+        display: flex;
+        justify-content: center;
+        .center-info-project {
+            background: rgb(255, 255, 255);
+            width: 90%;
+            max-width: 800px;
+
+            h1 {
+                font-size: 50px;
+                line-height: 60px;
+                text-transform: uppercase;
+                margin-top: 50px;
+                margin-bottom: 30px;
+
+                @media screen and (max-width: 940px) {
+                    font-size: 30px;
+                    line-height: 40px;
+                }
+            }
+
+            h2 {
+                font-size: 30px;
+                line-height: 30px;
+                text-transform: uppercase;
+                margin-bottom: 15px;
+                color: rgb(16, 15, 92);
+                @media screen and (max-width: 940px) {
+                    font-size: 20px;
+                    line-height: 20px;
+                }
+            }
+            p {
+                font-weight: lighter;
+                font-size: 15px;
+                color: rgb(0, 0, 0);
+                margin-bottom: 30px;
+                @media screen and (max-width: 940px) {
+                    font-size: 11px;
+                }
+            }
+            ul,
+            ol {
+                margin-bottom: 30px;
+                li {
+                    @media screen and (max-width: 940px) {
+                        font-size: 11px;
+                        // line-height: 20px;
                     }
                 }
             }
