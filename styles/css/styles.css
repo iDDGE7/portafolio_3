@@ -452,6 +452,24 @@ html {
           .wrapper-full .section-content-project .center-info-project ul li,
           .wrapper-full .section-content-project .center-info-project ol li {
             font-size: 11px; } }
+      .wrapper-full .section-content-project .center-info-project .content-button-doc {
+        margin-bottom: 30px;
+        width: 100%; }
+        .wrapper-full .section-content-project .center-info-project .content-button-doc .button-doc {
+          text-decoration: none;
+          text-transform: uppercase;
+          background: #f3e522;
+          color: #1d1d1d;
+          font-weight: bold;
+          padding: 3px 10px;
+          border-radius: 5px;
+          border: solid black;
+          transition: all 0.3s; }
+          .wrapper-full .section-content-project .center-info-project .content-button-doc .button-doc:hover {
+            transition: all 0.3s;
+            background: black;
+            color: #f3e522;
+            border: solid #f3e522; }
 
 .pop-up-materias {
   top: 0;

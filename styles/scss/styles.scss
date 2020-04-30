@@ -598,6 +598,28 @@ html {
                     }
                 }
             }
+
+            .content-button-doc {
+                margin-bottom: 30px;
+                width: 100%;
+                .button-doc {
+                    text-decoration: none;
+                    text-transform: uppercase;
+                    background: rgb(243, 229, 34);
+                    color: rgb(29, 29, 29);
+                    font-weight: bold;
+                    padding: 3px 10px;
+                    border-radius: 5px;
+                    border: solid black;
+                    transition: all 0.3s;
+                    &:hover {
+                        transition: all 0.3s;
+                        background: black;
+                        color: rgb(243, 229, 34);
+                        border: solid rgb(243, 229, 34);
+                    }
+                }
+            }
         }
     }
 }
